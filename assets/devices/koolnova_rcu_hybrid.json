@@ -1,0 +1,318 @@
+{
+  "id": "koolnova_rcu_hybrid",
+  "brand": "Koolnova",
+  "name": "Radio Central Unit HYBRID",
+  "productCode": "100-CPNH00",
+  "description": "Central de zonificación Koolnova con termostatos vía radio 868 MHz y bus cableado, WiFi y Modbus. Controla hasta 8 zonas.",
+  "identifiers": [
+    { "id": "brand", "label": "KOOLNOVA", "pattern": "K[O0]{2}LN[O0]VA" },
+    { "id": "model", "label": "HYBRID", "pattern": "HYBR[I1]D" },
+    { "id": "family", "label": "RADIO CENTRAL UNIT", "pattern": "RADI[O0]\\s*CENTRAL\\s*UNIT" },
+    { "id": "code", "label": "100-CPNH00", "pattern": "CPNH[O0]{2}" }
+  ],
+  "faces": [
+    {
+      "id": "zones",
+      "name": "Lateral de ZONAS",
+      "hint": "Muestra el lateral con las etiquetas ZONE 1 … ZONE 8 y los LEDs de estado."
+    },
+    {
+      "id": "power",
+      "name": "Lateral de ALIMENTACIÓN y COMUNICACIONES",
+      "hint": "Muestra el lateral con las etiquetas L N, GND B- A+ +24, H ALR, COM D- D+, AUX 1 y AUX 2."
+    }
+  ],
+  "ports": [
+    {
+      "id": "AC_IN",
+      "label": "L N",
+      "name": "Alimentación 230 V AC",
+      "face": "power",
+      "type": "power",
+      "danger": true,
+      "verified": false,
+      "description": "Entrada de alimentación de red (fase y neutro). Trabajar siempre sin tensión.",
+      "patterns": ["(?:^|\\s)L\\s+N(?:\\s|$)", "\\bAC\\s*[I1]N\\b"],
+      "pins": [
+        { "id": "L", "label": "L", "pattern": "^L$", "description": "Fase" },
+        { "id": "N", "label": "N", "pattern": "^N$", "description": "Neutro" }
+      ],
+      "connector": { "gap": 0.4, "depth": 3.0 }
+    },
+    {
+      "id": "BUS_24",
+      "label": "GND B- A+ +24",
+      "name": "Bus de termostatos cableados",
+      "face": "power",
+      "type": "communication",
+      "verified": false,
+      "description": "Bus RS485 (A+/B-) con alimentación de 24 V para termostatos y periféricos cableados.",
+      "patterns": ["\\bGND\\s*B\\s*-?\\s*A\\s*\\+?\\s*\\+?\\s*24\\b", "\\bGND\\s*B\\s*-?\\s*A\\s*\\+?", "\\bGND\\b"],
+      "pins": [
+        { "id": "GND", "label": "GND", "pattern": "^GND$", "description": "Masa" },
+        { "id": "B-", "label": "B-", "pattern": "^B-?$", "description": "Línea B del bus" },
+        { "id": "A+", "label": "A+", "pattern": "^A\\+?$", "description": "Línea A del bus" },
+        { "id": "+24", "label": "+24", "pattern": "^\\+?24$", "description": "Alimentación +24 V" }
+      ],
+      "connector": { "gap": 0.4, "depth": 3.0 }
+    },
+    {
+      "id": "H_ALR",
+      "label": "H ALR",
+      "name": "Entrada H / Alarma",
+      "face": "power",
+      "type": "input",
+      "verified": false,
+      "description": "Entrada de contacto (posible alarma o señal externa). Confirmar función con el manual oficial.",
+      "patterns": ["\\bH\\s*A[L1I]R\\b", "\\bA[L1I]R\\b"],
+      "pins": [
+        { "id": "H", "label": "H", "pattern": "^H$" },
+        { "id": "ALR", "label": "ALR", "pattern": "^A[L1I]R$" }
+      ],
+      "connector": { "gap": 0.4, "depth": 3.0 }
+    },
+    {
+      "id": "MODBUS",
+      "label": "COM D- D+",
+      "name": "Modbus RS485",
+      "face": "power",
+      "type": "communication",
+      "verified": false,
+      "description": "Bus Modbus RS485 para integración con domótica, BMS o pasarelas. El jumper azul junto al conector parece ser la resistencia de terminación.",
+      "patterns": ["\\bC[O0]M\\s*D\\s*-?\\s*D\\s*\\+?", "\\bC[O0]M\\s*D\\b"],
+      "pins": [
+        { "id": "COM", "label": "COM", "pattern": "^C[O0]M$", "description": "Común / referencia" },
+        { "id": "D-", "label": "D-", "pattern": "^D-?$", "description": "Línea D-" },
+        { "id": "D+", "label": "D+", "pattern": "^D\\+?$", "description": "Línea D+" }
+      ],
+      "connector": { "gap": 0.4, "depth": 3.0 }
+    },
+    {
+      "id": "AUX1",
+      "label": "AUX 1",
+      "name": "Auxiliar 1",
+      "face": "power",
+      "type": "auxiliary",
+      "verified": false,
+      "description": "Entrada/salida auxiliar 1. Confirmar uso (p. ej. control de máquina de clima) con el manual oficial.",
+      "patterns": ["\\bAUX\\s*[1IL|](?![0-9])"],
+      "pins": [],
+      "connector": { "gap": 0.4, "depth": 3.0 }
+    },
+    {
+      "id": "AUX2",
+      "label": "AUX 2",
+      "name": "Auxiliar 2",
+      "face": "power",
+      "type": "auxiliary",
+      "verified": false,
+      "description": "Entrada/salida auxiliar 2 (conector doble). Confirmar uso con el manual oficial.",
+      "patterns": ["\\bAUX\\s*[2Z](?![0-9])"],
+      "pins": [],
+      "connector": { "gap": 0.4, "depth": 3.0 }
+    },
+    {
+      "id": "ZONE1",
+      "label": "ZONE 1",
+      "name": "Zona 1",
+      "face": "zones",
+      "type": "output",
+      "verified": false,
+      "description": "Salida de la zona 1 (compuerta/motor de la zona).",
+      "patterns": ["\\bZ[O0]NE\\s*[1IL|](?![0-9])"],
+      "pins": [],
+      "connector": { "gap": 1.5, "depth": 3.0 }
+    },
+    {
+      "id": "ZONE2",
+      "label": "ZONE 2",
+      "name": "Zona 2",
+      "face": "zones",
+      "type": "output",
+      "verified": false,
+      "description": "Salida de la zona 2 (compuerta/motor de la zona).",
+      "patterns": ["\\bZ[O0]NE\\s*[2Z](?![0-9])"],
+      "pins": [],
+      "connector": { "gap": 1.5, "depth": 3.0 }
+    },
+    {
+      "id": "ZONE3",
+      "label": "ZONE 3",
+      "name": "Zona 3",
+      "face": "zones",
+      "type": "output",
+      "verified": false,
+      "description": "Salida de la zona 3 (compuerta/motor de la zona).",
+      "patterns": ["\\bZ[O0]NE\\s*3(?![0-9])"],
+      "pins": [],
+      "connector": { "gap": 1.5, "depth": 3.0 }
+    },
+    {
+      "id": "ZONE4",
+      "label": "ZONE 4",
+      "name": "Zona 4",
+      "face": "zones",
+      "type": "output",
+      "verified": false,
+      "description": "Salida de la zona 4 (compuerta/motor de la zona).",
+      "patterns": ["\\bZ[O0]NE\\s*[4A](?![0-9])"],
+      "pins": [],
+      "connector": { "gap": 1.5, "depth": 3.0 }
+    },
+    {
+      "id": "ZONE5",
+      "label": "ZONE 5",
+      "name": "Zona 5",
+      "face": "zones",
+      "type": "output",
+      "verified": false,
+      "description": "Salida de la zona 5 (compuerta/motor de la zona).",
+      "patterns": ["\\bZ[O0]NE\\s*[5S](?![0-9])"],
+      "pins": [],
+      "connector": { "gap": 1.5, "depth": 3.0 }
+    },
+    {
+      "id": "ZONE6",
+      "label": "ZONE 6",
+      "name": "Zona 6",
+      "face": "zones",
+      "type": "output",
+      "verified": false,
+      "description": "Salida de la zona 6 (compuerta/motor de la zona).",
+      "patterns": ["\\bZ[O0]NE\\s*[6G](?![0-9])"],
+      "pins": [],
+      "connector": { "gap": 1.5, "depth": 3.0 }
+    },
+    {
+      "id": "ZONE7",
+      "label": "ZONE 7",
+      "name": "Zona 7",
+      "face": "zones",
+      "type": "output",
+      "verified": false,
+      "description": "Salida de la zona 7 (compuerta/motor de la zona).",
+      "patterns": ["\\bZ[O0]NE\\s*[7T](?![0-9])"],
+      "pins": [],
+      "connector": { "gap": 1.5, "depth": 3.0 }
+    },
+    {
+      "id": "ZONE8",
+      "label": "ZONE 8",
+      "name": "Zona 8",
+      "face": "zones",
+      "type": "output",
+      "verified": false,
+      "description": "Salida de la zona 8 (compuerta/motor de la zona).",
+      "patterns": ["\\bZ[O0]NE\\s*[8B](?![0-9])"],
+      "pins": [],
+      "connector": { "gap": 1.5, "depth": 3.0 }
+    },
+    {
+      "id": "LED_BUS",
+      "label": "TX BUS",
+      "name": "LED actividad del bus",
+      "face": "zones",
+      "type": "indicator",
+      "verified": false,
+      "description": "LED que parpadea al transmitir por el bus cableado.",
+      "patterns": ["\\bTX\\s*BUS\\b"],
+      "pins": [],
+      "connector": { "gap": 0.2, "depth": 1.5 }
+    },
+    {
+      "id": "LED_RADIO",
+      "label": "RX RADIO",
+      "name": "LED recepción radio",
+      "face": "zones",
+      "type": "indicator",
+      "verified": false,
+      "description": "LED que indica recepción de termostatos vía radio (868 MHz).",
+      "patterns": ["\\bRX\\s*RAD[I1][O0]\\b"],
+      "pins": [],
+      "connector": { "gap": 0.2, "depth": 1.5 }
+    },
+    {
+      "id": "LED_STATUS",
+      "label": "STATUS",
+      "name": "LED de estado",
+      "face": "zones",
+      "type": "indicator",
+      "verified": false,
+      "description": "LED de estado general de la central.",
+      "patterns": ["\\bSTATUS\\b"],
+      "pins": [],
+      "connector": { "gap": 0.2, "depth": 1.5 }
+    },
+    {
+      "id": "BUS_AUX",
+      "label": "BUS",
+      "name": "Conector BUS (gris)",
+      "face": "zones",
+      "type": "communication",
+      "verified": false,
+      "description": "Conector gris junto a la etiqueta BUS. Confirmar función con el manual oficial.",
+      "patterns": ["(?<!TX\\s*)\\bBUS\\b"],
+      "pins": [],
+      "connector": { "gap": 0.4, "depth": 2.5 }
+    }
+  ],
+  "steps": [
+    {
+      "id": "safety",
+      "title": "Seguridad",
+      "instruction": "Comprueba que la línea de 230 V está desconectada antes de manipular la central.",
+      "port": "AC_IN",
+      "warning": "Riesgo eléctrico: no conectes L N hasta el último paso."
+    },
+    {
+      "id": "identify",
+      "title": "Identifica la central",
+      "instruction": "Enfoca la tapa superior hasta que se reconozca KOOLNOVA / HYBRID."
+    },
+    {
+      "id": "zones",
+      "title": "Conecta las zonas",
+      "instruction": "Conecta el motor de cada compuerta en su conector ZONE 1 … ZONE 8. Empieza por la zona 1.",
+      "port": "ZONE1"
+    },
+    {
+      "id": "bus",
+      "title": "Bus de termostatos cableados",
+      "instruction": "Si usas termostatos cableados, conecta GND, B-, A+ y +24 respetando el orden en todo el bus.",
+      "port": "BUS_24",
+      "pin": "A+"
+    },
+    {
+      "id": "modbus",
+      "title": "Modbus (opcional)",
+      "instruction": "Para integración con BMS/domótica conecta COM, D- y D+. Deja el jumper de terminación solo si la central es el último equipo del bus.",
+      "port": "MODBUS"
+    },
+    {
+      "id": "aux",
+      "title": "Auxiliares (opcional)",
+      "instruction": "Conecta AUX 1 / AUX 2 según el esquema de la instalación.",
+      "port": "AUX1"
+    },
+    {
+      "id": "alarm",
+      "title": "Entrada H ALR (opcional)",
+      "instruction": "Si la instalación lo requiere, conecta el contacto externo en H ALR.",
+      "port": "H_ALR"
+    },
+    {
+      "id": "power",
+      "title": "Alimentación",
+      "instruction": "Con todo cableado, conecta fase en L y neutro en N y energiza.",
+      "port": "AC_IN",
+      "pin": "L",
+      "warning": "230 V AC. Verifica el cableado antes de dar tensión."
+    },
+    {
+      "id": "check",
+      "title": "Verificación",
+      "instruction": "Comprueba que el LED STATUS está encendido y que RX RADIO / TX BUS parpadean al comunicar.",
+      "port": "LED_STATUS"
+    }
+  ]
+}
